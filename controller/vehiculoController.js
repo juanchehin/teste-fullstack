@@ -86,3 +86,37 @@ exports.altaVehiculo = (req, res) => {
     );
 
 }
+
+// ========================
+// Actualiza un vehiculo dado su id
+// ========================
+exports.actualizaVehiculo = (req, res) => {
+
+    console.log('body es : ', req.body);
+
+    IdVehiculo = req.params.id;
+    Vehiculo = req.body.Vehiculo;
+    Marca = req.body.Marca;
+    Ano = req.body.Ano;
+    Descripcion = req.body.Descripcion;
+    Vendido = req.body.Vendido;
+    Created = req.body.Created;
+
+
+    respuesta = connection.execute(
+        'UPDATE vehiculos SET Vehiculo = ?,Marca = ?,Ano = ?,Descripcion = ?,Vendido = ?,Created = ?,Updated = NOW() WHERE IdVehiculo = ?', [Vehiculo, Marca, Ano, Descripcion, Vendido, Created, IdVehiculo],
+        function(err) {
+            console.log('err es : ', err);
+
+            if (err) {
+                return res.json({
+                    mensaje: 'ocurrio un error'
+                });
+            }
+            return res.json({
+                mensaje: 'Vehiculo actualizado con exito'
+            });
+        }
+    );
+
+}

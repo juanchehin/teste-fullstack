@@ -30,10 +30,10 @@ app.post('/vehiculo',
     vehiculoController.altaVehiculo
 )
 
-// Actualiza un  vehiculo
-app.put('/vehiculo', (req, res) => {
-    res.send('Hello World!')
-})
+// Actualiza el vehiculo con el id
+app.put('/vehiculo/:id',
+    vehiculoController.actualizaVehiculo
+)
 
 // Actualiza solo algunos datos del vehículo
 app.path('/vehiculo/:id', (req, res) => {
