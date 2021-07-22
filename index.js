@@ -4,28 +4,31 @@ const router = express.Router();
 const app = express();
 const vehiculoController = require('./controller/vehiculoController');
 
-const port = 3000; // proceess.env.PORT
+// Para usar el cuerpo de la peticion (body)
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+const port = process.env.PORT || 3000; // proceess.env.PORT
 
 // Retorna todos los vehiculos
 app.get('/vehiculos',
     vehiculoController.dameVehiculos
-    // console.log('respuesta vehiculos', respuesta)
 )
 
 // Retorna los vehiculos de acuerdo a un parametro de busqueda
-app.get('/vehiculos/:q', (req, res) => {
-    res.send('Hello World!')
-})
+app.get('/vehiculo/:q',
+    vehiculoController.dameVehiculo
+)
 
-// Retorna los detalles de un vehiculo
-app.get('/vehiculo/:id', (req, res) => {
-    res.send('Hello World!')
-})
+// Retorna los vehiculos de acuerdo a un ID
+app.get('/vehiculo/id/:id',
+    vehiculoController.dameVehiculoID
+)
 
 // Crea un nuevo vehiculo
-app.post('/vehiculo', (req, res) => {
-    res.send('Hello World!')
-})
+app.post('/vehiculo',
+    vehiculoController.altaVehiculo
+)
 
 // Actualiza un  vehiculo
 app.put('/vehiculo', (req, res) => {
