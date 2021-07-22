@@ -36,15 +36,15 @@ app.put('/vehiculo/:id',
 )
 
 // Actualiza solo algunos datos del vehículo
-app.path('/vehiculo/:id', (req, res) => {
-    res.send('Hello World!')
-})
+app.patch('/vehiculo/:id',
+    vehiculoController.actualizaAlgunosVehiculo
+)
 
 // Elimina un vehiculo dado su id
-app.delete('/vehiculo/:id', (req, res) => {
-    res.send('Hello World!')
-})
+app.delete('/vehiculo/:id',
+    vehiculoController.eliminaVehiculo
+)
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Server corriendo en http://localhost:${port}`)
 })

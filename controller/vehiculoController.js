@@ -92,8 +92,6 @@ exports.altaVehiculo = (req, res) => {
 // ========================
 exports.actualizaVehiculo = (req, res) => {
 
-    console.log('body es : ', req.body);
-
     IdVehiculo = req.params.id;
     Vehiculo = req.body.Vehiculo;
     Marca = req.body.Marca;
@@ -106,8 +104,6 @@ exports.actualizaVehiculo = (req, res) => {
     respuesta = connection.execute(
         'UPDATE vehiculos SET Vehiculo = ?,Marca = ?,Ano = ?,Descripcion = ?,Vendido = ?,Created = ?,Updated = NOW() WHERE IdVehiculo = ?', [Vehiculo, Marca, Ano, Descripcion, Vendido, Created, IdVehiculo],
         function(err) {
-            console.log('err es : ', err);
-
             if (err) {
                 return res.json({
                     mensaje: 'ocurrio un error'
@@ -115,6 +111,59 @@ exports.actualizaVehiculo = (req, res) => {
             }
             return res.json({
                 mensaje: 'Vehiculo actualizado con exito'
+            });
+        }
+    );
+
+}
+
+// ========================
+// Actualiza algunos datos de un vehiculo dado su id
+// ========================
+exports.actualizaAlgunosVehiculo = (req, res) => {
+
+    IdVehiculo = req.params.id;
+    Vehiculo = req.body.Vehiculo || null;
+    Marca = req.body.Marca || null;
+    Ano = req.body.Ano || null;
+    Descripcion = req.body.Descripcion || null;
+    Vendido = req.body.Vendido || null;
+    Created = req.body.Created || null;
+
+
+    respuesta = connection.execute(
+        'UPDATE vehiculos SET Vehiculo = ?,Marca = ?,Ano = ?,Descripcion = ?,Vendido = ?,Created = ?,Updated = NOW() WHERE IdVehiculo = ?', [Vehiculo, Marca, Ano, Descripcion, Vendido, Created, IdVehiculo],
+        function(err) {
+            if (err) {
+                return res.json({
+                    mensaje: 'ocurrio un error'
+                });
+            }
+            return res.json({
+                mensaje: 'Vehiculo actualizado con exito'
+            });
+        }
+    );
+
+}
+
+// ========================
+// Elimina un vehiculo dado su id
+// ========================
+exports.eliminaVehiculo = (req, res) => {
+
+    IdVehiculo = req.params.id;
+
+    respuesta = connection.execute(
+        'DELETE FROM vehiculos WHERE IdVehiculo = ?', [IdVehiculo],
+        function(err) {
+            if (err) {
+                return res.json({
+                    mensaje: 'ocurrio un error'
+                });
+            }
+            return res.json({
+                mensaje: 'Vehiculo eliminado con exito'
             });
         }
     );
